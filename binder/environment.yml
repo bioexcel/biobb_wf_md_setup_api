@@ -1,4 +1,4 @@
-name: biobb_MDsetup_tutorial
+name: biobb_MDsetupAPI_tutorial
 channels:
   - conda-forge
   - bioconda
