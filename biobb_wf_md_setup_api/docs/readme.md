@@ -1,3 +1,5 @@
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/bioexcel/biobb_wf_md_setup_api/master?filepath=biobb_wf_md_setup_api%2Fnotebooks%2Fbiobb_MDsetupAPI_tutorial.ipynb)
+
 # Protein MD Setup tutorial using BioExcel Building Blocks (biobb) through REST API
 
 **Based on the official [GROMACS tutorial](http://www.mdtutorials.com/gmx/lysozyme/index.html).**
@@ -36,7 +38,7 @@ jupyter-notebook biobb_wf_md_setup_api/notebooks/biobb_MDsetupAPI_tutorial.ipynb
 
 Click here to [view tutorial in Read the Docs]()
 
-Click here to [execute tutorial in Binder]()
+Click here to [execute tutorial in Binder](https://mybinder.org/v2/gh/bioexcel/biobb_wf_md_setup_api/master?filepath=biobb_wf_md_setup_api%2Fnotebooks%2Fbiobb_MDsetupAPI_tutorial.ipynb)
 
 ***
 
