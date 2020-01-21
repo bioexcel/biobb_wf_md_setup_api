@@ -1,0 +1,10 @@
+name: biobb_MDsetup_tutorial
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python==3.6
+  - plotly
+  - nglview==1.1.7
+  - simpletraj
+  - conda
