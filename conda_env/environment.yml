@@ -4,6 +4,7 @@ channels:
   - bioconda
 dependencies:
   - python==3.6.5
+  - requests
   - nb_conda_kernels
   - plotly
   - nglview==1.1.7
