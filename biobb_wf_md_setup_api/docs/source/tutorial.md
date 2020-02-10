@@ -276,7 +276,7 @@ view.camera='orthographic'
 view
 ```
 
-<img src="ngl2.png"></img>
+<img src='_static/ngl2.png'></img>
 
 <a id="top"></a>
 ***

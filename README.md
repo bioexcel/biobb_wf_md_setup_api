@@ -1,5 +1,5 @@
 [![](https://readthedocs.org/projects/biobb-wf-md-setup-api/badge/?version=latest)](https://biobb-wf-md-setup-api.readthedocs.io/en/latest/?badge=latest)
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/bioexcel/biobb_wf_md_setup_api/master?filepath=biobb_wf_md_setup_api%2Fnotebooks%2Fbiobb_MDsetupAPI_tutorial.ipynb)
+[![](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/bioexcel/biobb_wf_md_setup_api/master?filepath=biobb_wf_md_setup_api%2Fnotebooks%2Fbiobb_MDsetupAPI_tutorial.ipynb)
 
 # Protein MD Setup tutorial using BioExcel Building Blocks (biobb) through REST API
 
@@ -7,7 +7,7 @@
 
 ***
 
-This tutorial aims to illustrate the process of **setting up a simulation** system containing a **protein**, step by step, using the **BioExcel Building Blocks library (biobb)**. The particular example used is the **Lysozyme** protein (PDB code 1AKI).
+This tutorial aims to illustrate the process of **setting up a simulation** system containing a **protein**, step by step, using the **BioExcel Building Blocks (biobb) [REST API](http://mmb.irbbarcelona.org/biobb-api)**. The particular example used is the **Lysozyme** protein (PDB code 1AKI).
 
 ***
 
@@ -15,6 +15,7 @@ This tutorial aims to illustrate the process of **setting up a simulation** syst
 
 ### Auxiliar libraries used
 
+* [requests](https://pypi.org/project/requests/): Requests allows you to send *organic, grass-fed* HTTP/1.1 requests, without the need for manual labor.
 * [nb_conda_kernels](https://github.com/Anaconda-Platform/nb_conda_kernels): Enables a Jupyter Notebook or JupyterLab application in one conda environment to access kernels for Python, R, and other languages found in other environments.
 * [nglview](http://nglviewer.org/#nglview): Jupyter/IPython widget to interactively view molecular structures and trajectories in notebooks.
 * [ipywidgets](https://github.com/jupyter-widgets/ipywidgets): Interactive HTML widgets for Jupyter notebooks and the IPython kernel.
