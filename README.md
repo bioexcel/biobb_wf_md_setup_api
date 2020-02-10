@@ -1,3 +1,4 @@
+[![](https://readthedocs.org/projects/biobb-wf-md-setup-api/badge/?version=latest)](https://biobb-wf-md-setup-api.readthedocs.io/en/latest/?badge=latest)
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/bioexcel/biobb_wf_md_setup_api/master?filepath=biobb_wf_md_setup_api%2Fnotebooks%2Fbiobb_MDsetupAPI_tutorial.ipynb)
 
 # Protein MD Setup tutorial using BioExcel Building Blocks (biobb) through REST API
@@ -36,7 +37,7 @@ jupyter-notebook biobb_wf_md_setup_api/notebooks/biobb_MDsetupAPI_tutorial.ipynb
 
 ## Tutorial
 
-Click here to [view tutorial in Read the Docs]()
+Click here to [view tutorial in Read the Docs](https://biobb-wf-md-setup-api.readthedocs.io/en/latest/tutorial.html)
 
 Click here to [execute tutorial in Binder](https://mybinder.org/v2/gh/bioexcel/biobb_wf_md_setup_api/master?filepath=biobb_wf_md_setup_api%2Fnotebooks%2Fbiobb_MDsetupAPI_tutorial.ipynb)
 
