@@ -3,10 +3,9 @@ channels:
   - conda-forge
   - bioconda
 dependencies:
-  - python==3.6.5
-  - requests
+  - python
   - nb_conda_kernels
   - plotly
-  - nglview==1.1.7
+  - nglview
   - simpletraj
   - conda
