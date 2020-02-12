@@ -218,7 +218,7 @@ Visualizing the downloaded/given **PDB structure** using **NGL**:
 
 ```python
 # Show protein
-view = nglview.show_file(downloaded_pdb)
+view = nglview.show_structure_file(downloaded_pdb)
 view.add_representation(repr_type='ball+stick', selection='all')
 view._remote_call('setSize', target='Widget', args=['','600px'])
 view
@@ -269,7 +269,7 @@ Visualizing the fixed **PDB structure** using **NGL**. In this particular exampl
 
 ```python
 # Show protein
-view = nglview.show_file(fixed_pdb)
+view = nglview.show_structure_file(fixed_pdb)
 view.add_representation(repr_type='ball+stick', selection='all')
 view._remote_call('setSize', target='Widget', args=['','600px'])
 view.camera='orthographic'
@@ -328,7 +328,7 @@ Visualizing the generated **GRO structure** using **NGL**. Note that **hydrogen 
 
 ```python
 # Show protein
-view = nglview.show_file(output_pdb2gmx_gro)
+view = nglview.show_structure_file(output_pdb2gmx_gro)
 view.add_representation(repr_type='ball+stick', selection='all')
 view._remote_call('setSize', target='Widget', args=['','600px'])
 view.camera='orthographic'
@@ -423,7 +423,7 @@ Visualizing the **protein system** with the newly added **solvent box** using **
 
 ```python
 # Show protein
-view = nglview.show_file(output_solvate_gro)
+view = nglview.show_structure_file(output_solvate_gro)
 view.clear_representations()
 view.add_representation(repr_type='cartoon', selection='solute', color='green')
 view.add_representation(repr_type='ball+stick', selection='SOL')
@@ -525,7 +525,7 @@ Visualizing the **neutralized protein system** with the newly added **ions** usi
 
 ```python
 # Show protein
-view = nglview.show_file(output_genion_gro)
+view = nglview.show_structure_file(output_genion_gro)
 view.clear_representations()
 view.add_representation(repr_type='cartoon', selection='solute', color='sstruc')
 view.add_representation(repr_type='ball+stick', selection='NA')
