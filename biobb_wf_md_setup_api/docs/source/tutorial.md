@@ -1,7 +1,7 @@
 # Protein MD Setup tutorial using BioExcel Building Blocks (biobb) through REST API
 **Based on the official GROMACS tutorial:** [http://www.mdtutorials.com/gmx/lysozyme/index.html](http://www.mdtutorials.com/gmx/lysozyme/index.html)
 ***
-This tutorial aims to illustrate the process of **setting up a simulation system** containing a **protein**, step by step, using the **BioExcel Building Blocks (biobb) [REST API](http://mmb.irbbarcelona.org/biobb-api)**. The particular example used is the **Lysozyme** protein (PDB code 1AKI). 
+This tutorial aims to illustrate the process of **setting up a simulation system** containing a **protein**, step by step, using the **BioExcel Building Blocks (biobb) [REST API](https://mmb.irbbarcelona.org/biobb-api)**. The particular example used is the **Lysozyme** protein (PDB code 1AKI). 
 ***
 
 ## Settings
@@ -54,9 +54,9 @@ This tutorial aims to illustrate the process of **setting up a simulation system
 ## Input parameters
 **Input parameters** needed:
  - **pdbCode**: PDB code of the protein structure (e.g. 1AKI)
- - **apiURL**: Base URL for the Biobb REST API (https://mmb.irbbarcelona.org/biobb-api/rest/v1/)
+ - **apiURL**: Base URL for the Biobb REST API ([https://mmb.irbbarcelona.org/biobb-api/rest/v1/](https://mmb.irbbarcelona.org/biobb-api/rest/v1/))
  
-Additionally, the **utils** library is loaded. This library contains global functions that are used for sending and retrieving data to / from the REST API. [Click here](http://mmb.irbbarcelona.org/biobb-api/tutorial) for more information about how the BioBB REST API works and which is the purpose for each of these functions.
+Additionally, the **utils** library is loaded. This library contains global functions that are used for sending and retrieving data to / from the REST API. [Click here](https://mmb.irbbarcelona.org/biobb-api/tutorial) for more information about how the BioBB REST API works and which is the purpose for each of these functions.
 
 
 ```python
@@ -76,7 +76,7 @@ Alternatively, a **PDB file** can be used as starting structure. <br>
 
 ***
 **BioBB REST API** end points used:
- - [PDB](http://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_io/pdb) from **biobb_io.api.pdb**
+ - [PDB](https://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_io/pdb) from **biobb_io.api.pdb**
 ***
 
 
@@ -131,7 +131,7 @@ view
 
 ***
 **BioBB REST API** end points used:
- - [FixSideChain](http://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_model/fix_side_chain) from **biobb_model.model.fix_side_chain**
+ - [FixSideChain](https://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_model/fix_side_chain) from **biobb_model.model.fix_side_chain**
 ***
 
 
@@ -188,7 +188,7 @@ Generating two output files:
     - *GROMACS position restraint file/s* (itp file/s)
 ***
 **BioBB REST API** end points used:
- - [Pdb2gmx](http://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_md/pdb2gmx) from **biobb_md.gromacs.pdb2gmx**
+ - [Pdb2gmx](https://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_md/pdb2gmx) from **biobb_md.gromacs.pdb2gmx**
 ***
 
 
@@ -241,7 +241,7 @@ A **cubic box** is used to define the unit cell, with a **distance from the prot
 
 ***
 **BioBB REST API** end points used:
- - [Editconf](http://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_md/editconf) from **biobb_md.gromacs.editconf**
+ - [Editconf](https://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_md/editconf) from **biobb_md.gromacs.editconf**
 ***
 
 
@@ -282,7 +282,7 @@ The solvent type used is the default **Simple Point Charge water (SPC)**, a gene
 
 ***
 **BioBB REST API** end points used:
- - [Solvate](http://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_md/solvate) from **biobb_md.gromacs.solvate**
+ - [Solvate](https://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_md/solvate) from **biobb_md.gromacs.solvate**
 ***
 
 
@@ -339,8 +339,8 @@ Add ions to neutralize the **protein structure** charge
 
 ***
 **BioBB REST API** end points used:
- - [Grompp](http://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_md/grompp) from **biobb_md.gromacs.grompp**
- - [Genion](http://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_md/genion) from **biobb_md.gromacs.genion**
+ - [Grompp](https://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_md/grompp) from **biobb_md.gromacs.grompp**
+ - [Genion](https://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_md/genion) from **biobb_md.gromacs.genion**
 ***
 
 <a id="ionsStep1"></a>
@@ -443,9 +443,9 @@ Energetically minimize the **protein system** till reaching a desired potential 
 
 ***
 **BioBB REST API** end points used:
- - [Grompp](http://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_md/grompp) from **biobb_md.gromacs.grompp**
- - [Mdrun](http://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_md/mdrun) from **biobb_md.gromacs.mdrun**
- - [GMXEnergy](http://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_analysis/gmx_energy) from **biobb_analysis.gromacs.gmx_energy**
+ - [Grompp](https://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_md/grompp) from **biobb_md.gromacs.grompp**
+ - [Mdrun](https://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_md/mdrun) from **biobb_md.gromacs.mdrun**
+ - [GMXEnergy](https://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_analysis/gmx_energy) from **biobb_analysis.gromacs.gmx_energy**
 ***
 
 <a id="emStep1"></a>
@@ -604,9 +604,9 @@ Equilibrate the **protein system** in **NVT ensemble** (constant Number of parti
 
 ***
 **BioBB REST API** end points used:
- - [Grompp](http://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_md/grompp) from **biobb_md.gromacs.grompp**
- - [Mdrun](http://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_md/mdrun) from **biobb_md.gromacs.mdrun**
- - [GMXEnergy](http://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_analysis/gmx_energy) from **biobb_analysis.gromacs.gmx_energy**
+ - [Grompp](https://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_md/grompp) from **biobb_md.gromacs.grompp**
+ - [Mdrun](https://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_md/mdrun) from **biobb_md.gromacs.mdrun**
+ - [GMXEnergy](https://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_analysis/gmx_energy) from **biobb_analysis.gromacs.gmx_energy**
 ***
 
 <a id="eqNVTStep1"></a>
@@ -773,9 +773,9 @@ Equilibrate the **protein system** in **NPT** ensemble (constant Number of parti
 - [Step 3](#eqNPTStep3): Checking **NPT Equilibration** results. Plotting **system pressure and density** by time during the **NPT equilibration** process.
 ***
 **BioBB REST API** end points used:
- - [Grompp](http://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_md/grompp) from **biobb_md.gromacs.grompp**
- - [Mdrun](http://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_md/mdrun) from **biobb_md.gromacs.mdrun**
- - [GMXEnergy](http://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_analysis/gmx_energy) from **biobb_analysis.gromacs.gmx_energy**
+ - [Grompp](https://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_md/grompp) from **biobb_md.gromacs.grompp**
+ - [Mdrun](https://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_md/mdrun) from **biobb_md.gromacs.mdrun**
+ - [GMXEnergy](https://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_analysis/gmx_energy) from **biobb_analysis.gromacs.gmx_energy**
 ***
 
 <a id="eqNPTStep1"></a>
@@ -955,10 +955,10 @@ Upon completion of the **two equilibration phases (NVT and NPT)**, the system is
 - [Step 3](#mdStep3): Checking results for the final step of the setup process, the **free MD run**. Plotting **Root Mean Square deviation (RMSd)** and **Radius of Gyration (Rgyr)** by time during the **free MD run** step. 
 ***
 **BioBB REST API** end points used:
- - [Grompp](http://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_md/grompp) from **biobb_md.gromacs.grompp**
- - [Mdrun](http://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_md/mdrun) from **biobb_md.gromacs.mdrun**
- - [GMXRms](http://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_analysis/gmx_rms) from **biobb_analysis.gromacs.gmx_rms**
- - [GMXRgyr](http://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_analysis/gmx_rgyr) from **biobb_analysis.gromacs.gmx_rgyr**
+ - [Grompp](https://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_md/grompp) from **biobb_md.gromacs.grompp**
+ - [Mdrun](https://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_md/mdrun) from **biobb_md.gromacs.mdrun**
+ - [GMXRms](https://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_analysis/gmx_rms) from **biobb_analysis.gromacs.gmx_rms**
+ - [GMXRgyr](https://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_analysis/gmx_rgyr) from **biobb_analysis.gromacs.gmx_rgyr**
 ***
 
 <a id="mdStep1"></a>
@@ -1239,8 +1239,8 @@ Post-processing and Visualizing the **protein system** MD setup **resulting traj
 - [Step 3](#ppStep3): Visualizing the *imaged* trajectory using the *dry* structure as a **topology**. 
 ***
 **BioBB REST API** end points used:
- - [GMXImage](http://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_analysis/gmx_image) from **biobb_analysis.gromacs.gmx_image**
- - [GMXTrjConvStr](http://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_analysis/gmx_trjconv_str) from **biobb_analysis.gromacs.gmx_trjconv_str**
+ - [GMXImage](https://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_analysis/gmx_image) from **biobb_analysis.gromacs.gmx_image**
+ - [GMXTrjConvStr](https://mmb.irbbarcelona.org/biobb-api/rest/v1/launch/biobb_analysis/gmx_trjconv_str) from **biobb_analysis.gromacs.gmx_trjconv_str**
 ***
 
 <a id="ppStep1"></a>
