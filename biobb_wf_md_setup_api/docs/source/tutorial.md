@@ -1,4 +1,3 @@
-
 # Protein MD Setup tutorial using BioExcel Building Blocks (biobb) through REST API
 **Based on the official GROMACS tutorial:** [http://www.mdtutorials.com/gmx/lysozyme/index.html](http://www.mdtutorials.com/gmx/lysozyme/index.html)
 ***
@@ -31,20 +30,19 @@ This tutorial aims to illustrate the process of **setting up a simulation system
 ***
  
 ## Pipeline steps
- 1. [Define global functions](#global)
- 2. [Input Parameters](#input)
- 3. [Fetching PDB Structure](#fetch)
- 4. [Fix Protein Structure](#fix)
- 5. [Create Protein System Topology](#top)
- 6. [Create Solvent Box](#box)
- 7. [Fill the Box with Water Molecules](#water)
- 8. [Adding Ions](#ions)
- 9. [Energetically Minimize the System](#min)
- 10. [Equilibrate the System (NVT)](#nvt)
- 11. [Equilibrate the System (NPT)](#npt)
- 12. [Free Molecular Dynamics Simulation](#free)
- 13. [Post-processing and Visualizing Resulting 3D Trajectory](#post)
- 14. [Output Files](#output)
+ 1. [Input Parameters](#input)
+ 2. [Fetching PDB Structure](#fetch)
+ 3. [Fix Protein Structure](#fix)
+ 4. [Create Protein System Topology](#top)
+ 5. [Create Solvent Box](#box)
+ 6. [Fill the Box with Water Molecules](#water)
+ 7. [Adding Ions](#ions)
+ 8. [Energetically Minimize the System](#min)
+ 9. [Equilibrate the System (NVT)](#nvt)
+ 10. [Equilibrate the System (NPT)](#npt)
+ 11. [Free Molecular Dynamics Simulation](#free)
+ 12. [Post-processing and Visualizing Resulting 3D Trajectory](#post)
+ 13. [Output Files](#output)
  
 ***
 <img src="https://bioexcel.eu/wp-content/uploads/2019/04/Bioexcell_logo_1080px_transp.png" alt="Bioexcel2 logo"
@@ -52,124 +50,22 @@ This tutorial aims to illustrate the process of **setting up a simulation system
 ***
 
 
-<a id="global"></a>
-## Define global functions
-These global functions are used for sending and retrieving data to / from the REST API. [Click here](http://mmb.irbbarcelona.org/biobb-api/tutorial) for more information about how the BioBB REST API works and which is the purpose for each of these functions.
-
-
-```python
-import requests
-import json
-import datetime
-from time import sleep
-from io import BytesIO
-from pathlib import Path
-
-class Response:
-  def __init__(self, status, json):
-    self.status = status
-    self.json = json
-
-def get_data(url):
-    r = requests.get(url)
-    return Response(r.status_code, json.loads(r.text))
-    
-def post_data(url, d, f):
-    r = requests.post(url, data = d, files = f)
-    return Response(r.status_code, json.loads(r.text))
-    
-def check_status(url, ok, error):
-    counter = 0
-    while True:
-        if counter < 10: slp = 1
-        if counter >= 10 and counter < 60: slp = 10
-        if counter >= 60: slp = 60
-        counter = counter + slp
-        sleep(slp)
-        r = requests.get(url)
-        if r.status_code == ok or r.status_code == error:
-            return counter
-            break
-
-def get_file(url, filename):
-    r = requests.get(url, allow_redirects=True)
-    file = open(filename,'wb') 
-    file.write(r.content) 
-    file.close()
-    
-def encode_config(data):
-    jsonData = json.dumps(data)
-    binaryData = jsonData.encode()
-    return BytesIO(binaryData)
-
-def launch_job(url, **kwargs):
-    data = {}
-    files = {}
-    # Fill data (output paths) and files (input files) objects
-    for key, value in kwargs.items():
-        # Inputs / Outputs
-        if type(value) is str:
-            if key.startswith('input'):
-                files[key] = (value,  open(value, 'rb'))
-            elif key.startswith('output'):
-                data[key] = value
-            elif Path(value).is_file():
-                files[key] = (value,  open(value, 'rb'))
-        # Properties (in case properties are provided as a dictionary instead of a file)
-        if type(value) is dict:
-            files['config'] = ('prop.json', encode_config(value))
-    # Request URL with data and files
-    response = post_data(url, data, files)
-    # Print REST API response
-    print(json.dumps(response.json, indent=2))
-    # Save token if status == 303
-    if response.status == 303:
-        token = response.json['token']
-        return token            
-    
-def check_job(token):
-    # define retrieve status URL
-    url = apiURL + 'retrieve/status/' + token
-    # check status until job has finished
-    counter = check_status(url, 200, 500)
-    # Get content when status = 200
-    response = get_data(url)
-    # Save id for the generated output_files
-    if response.status == 200:
-        out_files = []
-        for outf in response.json['output_files']:
-            item = { 'id': outf['id'], 'name': outf['name'] }
-            out_files.append(item)
-
-    # Print REST API response
-    print("Total elapsed time: %s" % str(datetime.timedelta(seconds=counter)))
-    print("REST API JSON response:")
-    print(json.dumps(response.json, indent=2))
-    
-    if response.status == 200: 
-        return out_files
-    else: return None
-
-def retrieve_data(out_files):
-    if not out_files:
-        return "No files provided"
-    for outf in out_files:
-        get_file(apiURL + 'retrieve/data/' + outf['id'], outf['name'])
-```
-
 <a id="input"></a>
 ## Input parameters
 **Input parameters** needed:
  - **pdbCode**: PDB code of the protein structure (e.g. 1AKI)
- - **apiURL**: Base URL for the Biobb REST API (http://mmb.irbbarcelona.org/biobb-api/rest/v1/)
+ - **apiURL**: Base URL for the Biobb REST API (https://mmb.irbbarcelona.org/biobb-api/rest/v1/)
+ 
+Additionally, the **utils** library is loaded. This library contains global functions that are used for sending and retrieving data to / from the REST API. [Click here](http://mmb.irbbarcelona.org/biobb-api/tutorial) for more information about how the BioBB REST API works and which is the purpose for each of these functions.
 
 
 ```python
 import nglview
 import ipywidgets
+from utils import *
 
 pdbCode = "1AKI"
-apiURL  = "http://mmb.irbbarcelona.org/biobb-api/rest/v1/"
+apiURL  = "https://mmb.irbbarcelona.org/biobb-api/rest/v1/" 
 ```
 
 <a id="fetch"></a>
@@ -202,13 +98,13 @@ token = launch_job(url = apiURL + 'launch/biobb_io/pdb',
 
 ```python
 # Check job status
-out_files = check_job(token)
+out_files = check_job(token, apiURL)
 ```
 
 
 ```python
 # Save generated file to disk
-retrieve_data(out_files)
+retrieve_data(out_files, apiURL)
 ```
 
 <a id="vis3D"></a>
@@ -254,13 +150,13 @@ token = launch_job(url = apiURL + 'launch/biobb_model/fix_side_chain',
 
 ```python
 # Check job status
-out_files = check_job(token)
+out_files = check_job(token, apiURL)
 ```
 
 
 ```python
 # Save generated file to disk
-retrieve_data(out_files)
+retrieve_data(out_files, apiURL)
 ```
 
 ### Visualizing 3D structure
@@ -313,13 +209,13 @@ token = launch_job(url = apiURL + 'launch/biobb_md/pdb2gmx',
 
 ```python
 # Check job status
-out_files = check_job(token)
+out_files = check_job(token, apiURL)
 ```
 
 
 ```python
 # Save generated file to disk
-retrieve_data(out_files)
+retrieve_data(out_files, apiURL)
 ```
 
 ### Visualizing 3D structure
@@ -369,13 +265,13 @@ token = launch_job(url = apiURL + 'launch/biobb_md/editconf',
 
 ```python
 # Check job status
-out_files = check_job(token)
+out_files = check_job(token, apiURL)
 ```
 
 
 ```python
 # Save generated file to disk
-retrieve_data(out_files)
+retrieve_data(out_files, apiURL)
 ```
 
 <a id="water"></a>
@@ -408,13 +304,13 @@ token = launch_job(url = apiURL + 'launch/biobb_md/solvate',
 
 ```python
 # Check job status
-out_files = check_job(token)
+out_files = check_job(token, apiURL)
 ```
 
 
 ```python
 # Save generated file to disk
-retrieve_data(out_files)
+retrieve_data(out_files, apiURL)
 ```
 
 ### Visualizing 3D structure
@@ -474,13 +370,13 @@ token = launch_job(url = apiURL + 'launch/biobb_md/grompp',
 
 ```python
 # Check job status
-out_files = check_job(token)
+out_files = check_job(token, apiURL)
 ```
 
 
 ```python
 # Save generated file to disk
-retrieve_data(out_files)
+retrieve_data(out_files, apiURL)
 ```
 
 <a id="ionsStep2"></a>
@@ -510,13 +406,13 @@ token = launch_job(url = apiURL + 'launch/biobb_md/genion',
 
 ```python
 # Check job status
-out_files = check_job(token)
+out_files = check_job(token, apiURL)
 ```
 
 
 ```python
 # Save generated file to disk
-retrieve_data(out_files)
+retrieve_data(out_files, apiURL)
 ```
 
 ### Visualizing 3D structure
@@ -588,13 +484,13 @@ token = launch_job(url = apiURL + 'launch/biobb_md/grompp',
 
 ```python
 # Check job status
-out_files = check_job(token)
+out_files = check_job(token, apiURL)
 ```
 
 
 ```python
 # Save generated file to disk
-retrieve_data(out_files)
+retrieve_data(out_files, apiURL)
 ```
 
 <a id="emStep2"></a>
@@ -623,13 +519,13 @@ token = launch_job(url = apiURL + 'launch/biobb_md/mdrun',
 
 ```python
 # Check job status
-out_files = check_job(token)
+out_files = check_job(token, apiURL)
 ```
 
 
 ```python
 # Save generated file to disk
-retrieve_data(out_files)
+retrieve_data(out_files, apiURL)
 ```
 
 <a id="emStep3"></a>
@@ -656,13 +552,13 @@ token = launch_job(url = apiURL + 'launch/biobb_analysis/gmx_energy',
 
 ```python
 # Check job status
-out_files = check_job(token)
+out_files = check_job(token, apiURL)
 ```
 
 
 ```python
 # Save generated file to disk
-retrieve_data(out_files)
+retrieve_data(out_files, apiURL)
 ```
 
 
@@ -757,13 +653,13 @@ token = launch_job(url = apiURL + 'launch/biobb_md/grompp',
 
 ```python
 # Check job status
-out_files = check_job(token)
+out_files = check_job(token, apiURL)
 ```
 
 
 ```python
 # Save generated file to disk
-retrieve_data(out_files)
+retrieve_data(out_files, apiURL)
 ```
 
 <a id="eqNVTStep2"></a>
@@ -795,13 +691,13 @@ token = launch_job(url = apiURL + 'launch/biobb_md/mdrun',
 
 ```python
 # Check job status
-out_files = check_job(token)
+out_files = check_job(token, apiURL)
 ```
 
 
 ```python
 # Save generated file to disk
-retrieve_data(out_files)
+retrieve_data(out_files, apiURL)
 ```
 
 <a id="eqNVTStep3"></a>
@@ -828,13 +724,13 @@ token = launch_job(url = apiURL + 'launch/biobb_analysis/gmx_energy',
 
 ```python
 # Check job status
-out_files = check_job(token)
+out_files = check_job(token, apiURL)
 ```
 
 
 ```python
 # Save generated file to disk
-retrieve_data(out_files)
+retrieve_data(out_files, apiURL)
 ```
 
 
@@ -928,13 +824,13 @@ token = launch_job(url = apiURL + 'launch/biobb_md/grompp',
 
 ```python
 # Check job status
-out_files = check_job(token)
+out_files = check_job(token, apiURL)
 ```
 
 
 ```python
 # Save generated file to disk
-retrieve_data(out_files)
+retrieve_data(out_files, apiURL)
 ```
 
 <a id="eqNPTStep2"></a>
@@ -964,13 +860,13 @@ token = launch_job(url = apiURL + 'launch/biobb_md/mdrun',
 
 ```python
 # Check job status
-out_files = check_job(token)
+out_files = check_job(token, apiURL)
 ```
 
 
 ```python
 # Save generated file to disk
-retrieve_data(out_files)
+retrieve_data(out_files, apiURL)
 ```
 
 <a id="eqNPTStep3"></a>
@@ -997,19 +893,19 @@ token = launch_job(url = apiURL + 'launch/biobb_analysis/gmx_energy',
 
 ```python
 # Check job status
-out_files = check_job(token)
+out_files = check_job(token, apiURL)
 ```
 
 
 ```python
 # Save generated file to disk
-retrieve_data(out_files)
+retrieve_data(out_files, apiURL)
 ```
 
 
 ```python
 import plotly
-from plotly import tools
+from plotly import subplots
 import plotly.graph_objs as go
 
 # Read pressure and density data from file 
@@ -1032,7 +928,7 @@ trace2 = go.Scatter(
     x=x,y=z
 )
 
-fig = tools.make_subplots(rows=1, cols=2, print_grid=False)
+fig = subplots.make_subplots(rows=1, cols=2, print_grid=False)
 
 fig.append_trace(trace1, 1, 1)
 fig.append_trace(trace2, 1, 2)
@@ -1103,13 +999,13 @@ token = launch_job(url = apiURL + 'launch/biobb_md/grompp',
 
 ```python
 # Check job status
-out_files = check_job(token)
+out_files = check_job(token, apiURL)
 ```
 
 
 ```python
 # Save generated file to disk
-retrieve_data(out_files)
+retrieve_data(out_files, apiURL)
 ```
 
 <a id="mdStep2"></a>
@@ -1139,13 +1035,13 @@ token = launch_job(url = apiURL + 'launch/biobb_md/mdrun',
 
 ```python
 # Check job status
-out_files = check_job(token)
+out_files = check_job(token, apiURL)
 ```
 
 
 ```python
 # Save generated file to disk
-retrieve_data(out_files)
+retrieve_data(out_files, apiURL)
 ```
 
 <a id="mdStep3"></a>
@@ -1175,13 +1071,13 @@ token = launch_job(url = apiURL + 'launch/biobb_analysis/gmx_rms',
 
 ```python
 # Check job status
-out_files = check_job(token)
+out_files = check_job(token, apiURL)
 ```
 
 
 ```python
 # Save generated file to disk
-retrieve_data(out_files)
+retrieve_data(out_files, apiURL)
 ```
 
 
@@ -1207,13 +1103,13 @@ token = launch_job(url = apiURL + 'launch/biobb_analysis/gmx_rms',
 
 ```python
 # Check job status
-out_files = check_job(token)
+out_files = check_job(token, apiURL)
 ```
 
 
 ```python
 # Save generated file to disk
-retrieve_data(out_files)
+retrieve_data(out_files, apiURL)
 ```
 
 
@@ -1294,13 +1190,13 @@ token = launch_job(url = apiURL + 'launch/biobb_analysis/gmx_rgyr',
 
 ```python
 # Check job status
-out_files = check_job(token)
+out_files = check_job(token, apiURL)
 ```
 
 
 ```python
 # Save generated file to disk
-retrieve_data(out_files)
+retrieve_data(out_files, apiURL)
 ```
 
 
@@ -1376,13 +1272,13 @@ token = launch_job(url = apiURL + 'launch/biobb_analysis/gmx_image',
 
 ```python
 # Check job status
-out_files = check_job(token)
+out_files = check_job(token, apiURL)
 ```
 
 
 ```python
 # Save generated file to disk
-retrieve_data(out_files)
+retrieve_data(out_files, apiURL)
 ```
 
 <a id="ppStep2"></a>
@@ -1413,13 +1309,13 @@ token = launch_job(url = apiURL + 'launch/biobb_analysis/gmx_trjconv_str',
 
 ```python
 # Check job status
-out_files = check_job(token)
+out_files = check_job(token, apiURL)
 ```
 
 
 ```python
 # Save generated file to disk
-retrieve_data(out_files)
+retrieve_data(out_files, apiURL)
 ```
 
 <a id="ppStep3"></a>
