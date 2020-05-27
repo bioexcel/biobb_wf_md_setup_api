@@ -1355,7 +1355,7 @@ Important **Output files** generated:
 Questions, issues, suggestions and comments are really welcome!
 
 * GitHub issues:
-    * https://github.com/bioexcel/biobb
+    * [https://github.com/bioexcel/biobb](https://github.com/bioexcel/biobb)
 
 * BioExcel forum:
-    * https://ask.bioexcel.eu/c/BioExcel-Building-Blocks-library
+    * [https://ask.bioexcel.eu/c/BioExcel-Building-Blocks-library](https://ask.bioexcel.eu/c/BioExcel-Building-Blocks-library)
