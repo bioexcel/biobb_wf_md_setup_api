@@ -355,9 +355,7 @@ A simple **energy minimization** molecular dynamics parameters (mdp) properties 
 # Create prop dict and inputs/outputs
 output_gppion_tpr = pdbCode + '_gppion.tpr'
 prop = {
-    'mdp':{
-        'type': 'minimization'
-    }
+    'simulation_type':'minimization'
 }
 
 # Launch bb on REST API
@@ -468,10 +466,10 @@ In this particular example, the method used to run the **energy minimization** i
 output_gppmin_tpr = pdbCode + '_gppmin.tpr'
 prop = {
     'mdp':{
-        'type': 'minimization',
         'emtol':'500',
         'nsteps':'5000'
-    }
+    },
+    'simulation_type':'minimization'
 }
 
 # Launch bb on REST API
@@ -635,12 +633,12 @@ In this particular example, the default parameters will be used: **md** integrat
 output_gppnvt_tpr = pdbCode + '_gppnvt.tpr'
 prop = {
     'mdp':{
-        'type': 'nvt',
         'nsteps': 5000,
         'dt': 0.002,
-        'define': '-DPOSRES',
+        'Define': '-DPOSRES',
         #'tc_grps': "DNA Water_and_ions" # NOTE: uncomment this line if working with DNA
-    }
+    },
+    'simulation_type':'nvt'
 }
 
 # Launch bb on REST API
@@ -808,10 +806,10 @@ In this particular example, the default parameters will be used: **md** integrat
 output_gppnpt_tpr = pdbCode + '_gppnpt.tpr'
 prop = {
     'mdp':{
-        'type': 'npt',
         'nsteps':'5000',
         #'tc_grps': "DNA Water_and_ions" # NOTE: uncomment this line if working with DNA
-    }
+    },
+    'simulation_type':'npt'
 }
 
 # Launch bb on REST API
@@ -983,10 +981,10 @@ In this particular example, the default parameters will be used: **md** integrat
 output_gppmd_tpr = pdbCode + '_gppmd.tpr'
 prop = {
     'mdp':{
-        'type': 'free',
         'nsteps':'50000',
         #'tc_grps': "DNA Water_and_ions" # NOTE: uncomment this line if working with DNA
-    }
+    },
+    'simulation_type':'free'
 }
 
 # Launch bb on REST API

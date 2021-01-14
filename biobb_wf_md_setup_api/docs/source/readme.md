@@ -1,5 +1,5 @@
 [![](https://readthedocs.org/projects/biobb-wf-md-setup-api/badge/?version=latest)](https://biobb-wf-md-setup-api.readthedocs.io/en/latest/?badge=latest)
-[![](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/bioexcel/biobb_wf_md_setup_api/master?filepath=biobb_wf_md_setup_api%2Fnotebooks%2Fbiobb_MDsetupAPI_tutorial.ipynb)
+[![](https://mybinder.org/badge_logo.svg)](https://bioexcel-binder.tsi.ebi.ac.uk/v2/gh/bioexcel/biobb_wf_md_setup_api/master?filepath=biobb_wf_md_setup_api%2Fnotebooks%2Fbiobb_MDsetupAPI_tutorial.ipynb)
 
 # Protein MD Setup tutorial using BioExcel Building Blocks (biobb) through REST API
 
@@ -40,12 +40,12 @@ jupyter-notebook biobb_wf_md_setup_api/notebooks/biobb_MDsetupAPI_tutorial.ipynb
 
 Click here to [view tutorial in Read the Docs](https://biobb-wf-md-setup-api.readthedocs.io/en/latest/tutorial.html)
 
-Click here to [execute tutorial in Binder](https://mybinder.org/v2/gh/bioexcel/biobb_wf_md_setup_api/master?filepath=biobb_wf_md_setup_api%2Fnotebooks%2Fbiobb_MDsetupAPI_tutorial.ipynb)
+Click here to [execute tutorial in Binder](https://bioexcel-binder.tsi.ebi.ac.uk/v2/gh/bioexcel/biobb_wf_md_setup_api/master?filepath=biobb_wf_md_setup_api%2Fnotebooks%2Fbiobb_MDsetupAPI_tutorial.ipynb)
 
 ***
 
 ## Version
-May 2020 Release
+2020.4 Release
 
 ## Copyright & Licensing
 This software has been developed in the [MMB group](http://mmb.irbbarcelona.org) at the [BSC](http://www.bsc.es/) & [IRB](https://www.irbbarcelona.org/) for the [European BioExcel](http://bioexcel.eu/), funded by the European Commission (EU H2020 [823830](http://cordis.europa.eu/projects/823830), EU H2020 [675728](http://cordis.europa.eu/projects/675728)).
